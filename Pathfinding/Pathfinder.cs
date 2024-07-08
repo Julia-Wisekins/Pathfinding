@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Pathfinding
 {
@@ -12,10 +7,20 @@ namespace Pathfinding
         private const int DistanceCost = 10;
         private readonly IWorld _worldState;
 
+        /// <summary>
+        /// initializes world to find most efficient hiking trails for robots
+        /// </summary>
+        /// <param name="world">Maze</param>
         public Pathfinder(IWorld world) {
             this._worldState = world;
         }
 
+        /// <summary>
+        /// Finds Optimal Robot Hiking Path
+        /// </summary>
+        /// <param name="startLocation"> current <see cref="Point"/> within <see cref="World"/></param>
+        /// <param name="endLocation"> exit <see cref="Point"/> within <see cref="World"/></param>
+        /// <returns>Google maps instructions of most efficient hiking trail</returns>
         public Point[] FindPath(Point startLocation, Point endLocation)
         {
             Queue<Point> path = new Queue<Point>();

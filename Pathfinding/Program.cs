@@ -10,7 +10,7 @@ var tiles = new int[,] {
    };
 IPathfinder test = new Pathfinder(new World(3, 3, tiles));
 
-Point[] answer = test.FindPath(new System.Drawing.Point(0, 0), new System.Drawing.Point(2, 0));
+Point[] answer = test.FindPath(new Point(0, 0), new Point(2, 0));
 
 if (answer.Length == 0)
 {

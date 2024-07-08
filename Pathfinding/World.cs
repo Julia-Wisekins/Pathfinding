@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Pathfinding
 {
+    /// <summary>
+    /// The State of the Maze
+    /// </summary>
     internal class World : IWorld
     {
         private readonly PathNode[] _worldPositions;
 
+        /// <summary>
+        /// initializes world locations and map
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="map"></param>
         public World(int width, int height, int[,] map)
         {
             if(map == null)
@@ -36,6 +40,11 @@ namespace Pathfinding
             }
         }
 
+        /// <summary>
+        /// Location Data
+        /// </summary>
+        /// <param name="position">current <see cref="Point"/></param>
+        /// <returns><see cref="PathNode"/> for the provided <see cref="Point"/></returns>
         public PathNode this[Point position] { get {
                 if (position.Y >= Height
                     || position.Y < 0) {
@@ -61,11 +70,21 @@ namespace Pathfinding
                 _worldPositions[(position.Y * Height) + position.X] = value; 
             } 
         }
-
+        /// <summary>
+        /// Maze Height
+        /// </summary>
         public int Height { get; init; }
 
+        /// <summary>
+        /// Maze Width
+        /// </summary>
         public int Width { get; init; }
 
+        /// <summary>
+        /// The <see cref="Point"/>'s  avalible travel paths from the provided <see cref="Point"/>
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns>avalible <see cref="Point"/></returns>
         public IEnumerable<PathNode> GetNextPositions(Point node)
         {
             List<PathNode> result = new List<PathNode>();
@@ -107,6 +126,10 @@ namespace Pathfinding
             return result;
         }
 
+        /// <summary>
+        /// Closest open node to the exit
+        /// </summary>
+        /// <returns><see cref="PathNode"/> closest to exit</returns>
         public PathNode GetLowestFValue()
         {
             return _worldPositions.Where(x => x.Found && x.HasOpenNodes(this)).MinBy(j => j.H);
